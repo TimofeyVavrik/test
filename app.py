@@ -1,4 +1,5 @@
 import random
+import sys
 from typing import List
 
 def is_prime(x: int) -> bool:
@@ -47,5 +48,21 @@ def pipeline() -> int:
     return result
 
 if __name__ == "__main__":
-    # Шаг 4: Печать результата
-    print(pipeline())
+    # Проверяем, что переданы два аргумента командной строки
+    if len(sys.argv) != 3:
+        print("Использование: python script.py <количество_простых_чисел> <seed>")
+        sys.exit(1)
+
+    try:
+        number_of_primes = int(sys.argv[1])
+        seed_value = int(sys.argv[2])
+    except ValueError:
+        print("Оба аргумента должны быть целыми числами.")
+        sys.exit(1)
+
+    # Вызываем pipeline с заданными параметрами
+    shuffled_primes = pipeline(number_of_primes, seed_value)
+
+    # Печатаем список полученных чисел по одному в строке
+    for prime in shuffled_primes:
+        print(prime)
